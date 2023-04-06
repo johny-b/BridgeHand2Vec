@@ -52,3 +52,8 @@ def hand_to_binary(hand):
 
 def binary_to_pbn(binary):
     return hand_to_pbn(binary_to_hand(binary))
+
+def get_random_hand():
+    deck = DECK.copy()
+    np.random.shuffle(deck)
+    return hand_to_pbn(deck[:13])
