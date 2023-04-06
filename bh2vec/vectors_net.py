@@ -138,27 +138,10 @@ def find_nearest_hands(hand, net, vectors, n=10):
 
     return find_nearest_hands_from_vec(hand_vec, net, vectors, n)
 
-
 def binary_hand_to_vec(hand_binary, net):
     hand_tensor = torch.tensor(hand_binary, dtype=torch.float32)
     hand_vec = net.get_vector(hand_tensor).detach().numpy()
     return hand_vec
-
-
-def hand_to_vec(hand, net):
-    hand_binary = bridge_helpers.pbn_to_binary(hand).reshape(1, -1)
-    hand_tensor = torch.tensor(hand_binary, dtype=torch.float32)
-    hand_vec = net.get_vector(hand_tensor).detach().numpy()
-    return hand_vec
-
-def predict_tricks(net, handN, handS):
-    binaryN = bridge_helpers.pbn_to_binary(handN).reshape(1, -1)
-    binaryS = bridge_helpers.pbn_to_binary(handS).reshape(1, -1)
-    X = np.concatenate((binaryN, binaryS), axis=1)
-    X_tensor = torch.tensor(X, dtype=torch.float32)
-    out = net(X_tensor).detach().numpy()
-    return out
-
 
 def train(file, val_file, n_hid=8, epochs=100):
     net = VectorsNetNorm(n_hid)
