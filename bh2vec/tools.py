@@ -26,25 +26,35 @@ def hand_to_vec(net, hand_pbn):
     return hand_vec[0]
 
 def vec_to_hand(net, target_vec, *, num_attempts=1):
+    """Find a hand with embedding close to a target_vec.
+
+    This is a random process that might yield different hand for the same target_vec.
+    """
     best_hands = {}
-    
+
     for i in range(num_attempts):
         current_hand = bh.get_random_hand()
         while True:
             current_hand_vec = hand_to_vec(net, current_hand)
             dist = np.linalg.norm(target_vec - current_hand_vec)
-            new_hand = _single_step_closer(net, current_hand, target_vec, dist)
+            new_hand = _replace_one_card(net, current_hand, target_vec, dist)
             if new_hand is None:
                 break
             else:
                 current_hand = new_hand
-        
+
         best_hands[current_hand] = dist
 
     best_hand = max(best_hands, key=lambda x: best_hands[x])
     return best_hand
 
-def _single_step_closer(net, hand, target_vec, dist):
+def _replace_one_card(net, hand, target_vec, dist):
+    """Replace one card in a hand so that its embedding is closer to target_vec than dist.
+
+    Returns None if no such replacement is possible.
+    If many different replacements are possible, returns the best one.
+    """
+
     hand_bin = bh.pbn_to_binary(hand)
     card_ixs = np.where(hand_bin)
     non_card_ixs = np.where(np.invert(hand_bin))

@@ -2,6 +2,12 @@
 
 [TODO about the project]
 
+## Installation
+
+```
+pip3 install -r requirements.txt
+```
+
 ## Repository contents
 
 * BridgeHand2Vec model
