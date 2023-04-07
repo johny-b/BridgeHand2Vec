@@ -25,18 +25,24 @@ def hand_to_vec(net, hand_pbn):
     hand_vec = net.get_vector(hand_tensor).detach().numpy()
     return hand_vec[0]
 
-def vec_to_hand(net, target_vec, *, attempts=1, max_cnt=1):
-    current_hand = bh.get_random_hand()
-    while True:
-        current_hand_vec = hand_to_vec(net, current_hand)
-        dist = np.linalg.norm(target_vec - current_hand_vec)
-        new_hand = _single_step_closer(net, current_hand, target_vec, dist)
-        if new_hand is None:
-            break
-        else:
-            current_hand = new_hand
+def vec_to_hand(net, target_vec, *, num_attempts=1):
+    best_hands = {}
+    
+    for i in range(num_attempts):
+        current_hand = bh.get_random_hand()
+        while True:
+            current_hand_vec = hand_to_vec(net, current_hand)
+            dist = np.linalg.norm(target_vec - current_hand_vec)
+            new_hand = _single_step_closer(net, current_hand, target_vec, dist)
+            if new_hand is None:
+                break
+            else:
+                current_hand = new_hand
+        
+        best_hands[current_hand] = dist
 
-    return current_hand
+    best_hand = max(best_hands, key=lambda x: best_hands[x])
+    return best_hand
 
 def _single_step_closer(net, hand, target_vec, dist):
     hand_bin = bh.pbn_to_binary(hand)
