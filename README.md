@@ -2,7 +2,7 @@
 
 ## Installation
 
-This was developed & tested on python3.8.10, other popular python versions should work as well.
+We used `python3.8.10`, other popular python versions should work as well.
 
 ```
 pip3 install -r requirements.txt

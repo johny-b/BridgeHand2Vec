@@ -28,7 +28,7 @@ def hand_to_vec(net, hand_pbn):
 def vec_to_hand(net, target_vec, *, num_attempts=1):
     """Find a hand with embedding close to a target_vec.
 
-    This is a random process that might yield different hand for the same target_vec.
+    This is a nondeterministic process that might create different hands for the same target_vec.
     """
     best_hands = {}
 

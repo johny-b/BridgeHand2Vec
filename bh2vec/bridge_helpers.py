@@ -21,7 +21,6 @@ def pbn_to_binary(hand):
         i += 1
     return binary
 
-
 def binary_to_hand(binary):
     return list(np.array(DECK)[binary])
 
@@ -30,12 +29,10 @@ def _select_suit(hand, suit):
     return ''.join(sorted([c[0] for c in hand if c[1] == suit],
                    key=lambda c: CARDS.index(c), reverse=True))
 
-
 def deal_to_pbn(hands):
     pbn = 'N:' + hand_to_pbn(hands[0]) + ' ' + hand_to_pbn(hands[1]) + ' '
     pbn += hand_to_pbn(hands[2]) + ' ' + hand_to_pbn(hands[3])
     return pbn
-
 
 def hand_to_pbn(hand):
     c = _select_suit(hand, 'C')
@@ -45,10 +42,8 @@ def hand_to_pbn(hand):
 
     return s + '.' + h + '.' + d + '.' + c
 
-
 def hand_to_binary(hand):
     return pbn_to_binary(hand_to_pbn(hand))
-
 
 def binary_to_pbn(binary):
     return hand_to_pbn(binary_to_hand(binary))
