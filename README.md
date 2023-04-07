@@ -2,7 +2,7 @@
 
 ## Installation
 
-This was developed & tested on python3.8.10, other popular versions should work as well.
+This was developed & tested on python3.8.10, other popular python versions should work as well.
 
 ```
 pip3 install -r requirements.txt
@@ -20,4 +20,6 @@ pip3 install -r requirements.txt
 python3 train.py
 ```
 
-Training data in the `data` directory is only a part of the data `model.pth` was trained on.
+Training should take few minutes, run `tensorboard --logdir runs/vectors/` to watch progress.
+Training data in the `data` directory is only a part of the data `model.pth` was trained on,
+so new model will be much less accurate.
