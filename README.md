@@ -20,6 +20,6 @@ pip3 install -r requirements.txt
 python3 train.py
 ```
 
-Training should take few minutes, run `tensorboard --logdir runs/vectors/` to watch progress.
+Training should take few minutes, run `tensorboard --logdir runs/vectors/` to watch the progress.
 Training data in the `data` directory is only a part of the data `model.pth` was trained on,
-so new model will be much less accurate.
+so the new model will be less accurate.
