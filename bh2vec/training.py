@@ -17,7 +17,7 @@ def train(net, train_fname, val_fname, epochs):
     Y_tensor = torch.tensor(Y, dtype=torch.float32)
 
     df_val = pd.read_csv(val_fname, sep=';', index_col=0)
-    X_val, Y_val = inputs_to_numpy(df_val)
+    X_val, Y_val = inputs_to_numpy(df_val, swap=False)
     X_val_tensor = torch.tensor(X_val, dtype=torch.float32)
     Y_val_tensor = torch.tensor(Y_val, dtype=torch.float32)
 
