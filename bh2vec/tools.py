@@ -25,6 +25,16 @@ def hand_to_vec(net, hand_pbn):
     hand_vec = net.get_vector(hand_tensor).detach().numpy()
     return hand_vec[0]
 
+def load_vectors_for_hands(net, df, hand_col='hand'):
+    """Calculate the embeddings for a dataframe of hands"""
+    rowsX = []
+    for _, row in df.iterrows():
+        binary = bh.pbn_to_binary(row[hand_col]).reshape(1, -1)
+        rowsX.append(binary)
+    X = np.concatenate(rowsX, axis=0)
+    X_tensor = torch.tensor(X, dtype=torch.float32)
+    return net.get_vector(X_tensor).detach().numpy()
+
 def vec_to_hand(net, target_vec, *, num_attempts=1):
     """Find a hand with embedding close to a target_vec.
 
