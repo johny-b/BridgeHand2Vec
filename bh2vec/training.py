@@ -3,6 +3,14 @@ import pandas as pd
 import torch
 from torch.utils.tensorboard import SummaryWriter
 
+torch.manual_seed(0)
+torch.use_deterministic_algorithms(True)
+
+import random
+random.seed(0)
+
+np.random.seed(0)
+
 from . import bridge_helpers
 
 def train(net, train_fname, val_fname, epochs):
@@ -22,7 +30,18 @@ def train(net, train_fname, val_fname, epochs):
     Y_val_tensor = torch.tensor(Y_val, dtype=torch.float32)
 
     train = torch.utils.data.TensorDataset(X_tensor, Y_tensor)
-    train_loader = torch.utils.data.DataLoader(train, batch_size=10000, shuffle=True)
+
+    def seed_worker(worker_id):
+        worker_seed = torch.initial_seed() % 2**32
+        np.random.seed(worker_seed)
+        random.seed(worker_seed)
+
+    g = torch.Generator()
+    g.manual_seed(0)
+
+    train_loader = torch.utils.data.DataLoader(train, batch_size=10000, shuffle=True,
+                                               worker_init_fn=seed_worker,
+                                               generator=g,)
 
     n = 0
     for i in range(epochs):
