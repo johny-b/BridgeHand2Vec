@@ -15,7 +15,7 @@ from . import bridge_helpers
 
 def train(net, train_fname, val_fname, epochs):
     criterion = torch.nn.MSELoss()
-    optimizer = torch.optim.Adam(net.parameters(), 5e-3, weight_decay=0)
+    optimizer = torch.optim.Adam(net.parameters(), 5e-3, eps=1e-4, weight_decay=0)
     scheduler = torch.optim.lr_scheduler.ExponentialLR(optimizer, gamma=0.999)
     writer = SummaryWriter('runs/vectors')
 
