@@ -33,13 +33,16 @@ def train(net, train_fname, val_fname, epochs):
             optimizer.step()
             optimizer.zero_grad()
 
-            out_val = net(X_val_tensor)
-            mse_val = ((out_val - Y_val_tensor) ** 2).mean()
-            writer.add_scalars('mse', {'train': loss.item(), 'val': mse_val}, n)
-
+            writer.add_scalars('mse', {'train': loss.item()}, n)
             mae = (out - batch_y).abs().mean()
-            mae_val = (out_val - Y_val_tensor).abs().mean()
-            writer.add_scalars('mae', {'train': mae, 'val': mae_val}, n)
+            writer.add_scalars('mae', {'train': mae}, n)
+
+            if n % 20 == 0:
+                out_val = net(X_val_tensor)
+                mse_val = ((out_val - Y_val_tensor) ** 2).mean()
+                writer.add_scalars('mse', {'val': mse_val}, n)
+                mae_val = (out_val - Y_val_tensor).abs().mean()
+                writer.add_scalars('mae', {'val': mae_val}, n)
 
             n += 1
         scheduler.step()
