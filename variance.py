@@ -7,7 +7,7 @@ Variance of models accuracy
 '''
 
 PATH = 'models'
-models = ['vec5_batch_norm.pth', 'model.pth']
+models = ['model_' + str(n) + '.pth' for n in range(10)]
 
 X, Y = process_files('data/vectorsnet_test.csv')
 
