@@ -1,5 +1,7 @@
 # BridgeHand2Vec
 
+Code behind "BridgeHand2Vec Bridge Hand Representation" by Anna Sztyber-Betley, Filip Kołodziej, Jan Betley and Piotr Duszak (article accepted for [ECAI-23](https://ecai2023.eu/), not published yet).
+
 ## Installation
 
 We used `python3.8.10`, other popular python versions should work as well.
