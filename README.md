@@ -16,10 +16,12 @@ pip3 install -r requirements.txt
 
 ## Training
 
+Run training on a small subset of the training data:
+
 ```
 python3 train.py
 ```
 
-Training should take few minutes, run `tensorboard --logdir runs/vectors/` to watch the progress.
-Training data in the `data` directory is only a part of the data `model.pth` was trained on,
-so the new model will be less accurate.
+This should take few minutes, run `tensorboard --logdir runs/vectors/` to watch the progress.
+
+To train on the full dataset, unzip `data/vectorsnet_train.zip` file (e.g. `unzip data/vectorsnet_train.zip`) and change filenames in `train.py` script.
