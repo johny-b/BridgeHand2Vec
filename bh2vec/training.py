@@ -21,12 +21,19 @@ def train(net, train_fname, val_fname, epochs):
     X_val_tensor = torch.tensor(X_val, dtype=torch.float32)
     Y_val_tensor = torch.tensor(Y_val, dtype=torch.float32)
 
+    device = next(net.parameters()).device
+    X_val_tensor = X_val_tensor.to(device)
+    Y_val_tensor = Y_val_tensor.to(device)
+
     train = torch.utils.data.TensorDataset(X_tensor, Y_tensor)
     train_loader = torch.utils.data.DataLoader(train, batch_size=10000, shuffle=True)
 
     n = 0
     for i in range(epochs):
         for batch_x, batch_y in train_loader:
+            batch_x = batch_x.to(device)
+            batch_y = batch_y.to(device)
+
             out = net(batch_x)
             loss = criterion(out, batch_y)
             loss.backward()
