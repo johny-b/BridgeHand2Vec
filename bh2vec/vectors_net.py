@@ -2,20 +2,20 @@ import torch
 import torch.nn as nn
 
 class VectorsNetNorm(nn.Module):
-    def __init__(self, n_hid=8):
+    def __init__(self, n_hid=8, emb_dim=32, pred_dim=128):
         super().__init__()
 
         # embedding
-        self.emb1 = nn.Linear(52, 32)
-        self.emb2 = nn.Linear(32, 32)
-        self.emb3 = nn.Linear(32, n_hid)
+        self.emb1 = nn.Linear(52, emb_dim)
+        self.emb2 = nn.Linear(emb_dim, emb_dim)
+        self.emb3 = nn.Linear(emb_dim, n_hid)
         self.act = nn.ELU()
         self.batch_norm = nn.BatchNorm1d(n_hid, affine=False)
 
         # prediction
-        self.hid1 = nn.Linear(2 * n_hid, 128)
-        self.hid2 = nn.Linear(128, 128)
-        self.out = nn.Linear(128, 5)
+        self.hid1 = nn.Linear(2 * n_hid, pred_dim)
+        self.hid2 = nn.Linear(pred_dim, pred_dim)
+        self.out = nn.Linear(pred_dim, 5)
 
     def forward(self, x):
         x = x.view(-1, 104)

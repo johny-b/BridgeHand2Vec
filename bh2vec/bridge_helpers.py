@@ -12,7 +12,7 @@ BIDS = ['PASS'] + [str(h) + t for h, t in itertools.product(range(1, 8), TRUMPS)
 
 def pbn_to_binary(hand):
     i = 0
-    binary = np.zeros(52, dtype=np.bool8)
+    binary = np.zeros(52, dtype=np.bool_)
     for s in SUITS[::-1]:
         while i < 16 and hand[i] != '.':
             card = hand[i] + s
