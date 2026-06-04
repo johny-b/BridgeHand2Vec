@@ -196,7 +196,6 @@ def _save_plot(history, path):
     ax.plot(epochs, history['val_mse'], label='val')
     ax.set_title('MSE')
     ax.set_xlabel('epoch')
-    ax.set_yscale('log')
     ax.grid(True, alpha=0.3)
     ax.legend()
 
@@ -230,7 +229,6 @@ def _save_plot(history, path):
     ax.plot(epochs, history['lr'])
     ax.set_title('Learning rate')
     ax.set_xlabel('epoch')
-    ax.set_yscale('log')
     ax.grid(True, alpha=0.3)
 
     ax = axes[1, 2]
